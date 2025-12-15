@@ -1,0 +1,36 @@
+@media screen and (max-width: 1037px) {
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .image__right {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 714px) {
+
+    body {
+        background: #FFFFFF;
+    }
+
+    .main {
+        grid-template-areas:
+        "header"
+        "left";
+        grid-template-columns: 100%;
+    }
+
+    .right {
+        display: none;
+    }
+
+
+    .image__right {
+        display: none;
+    }
+
+
+
+}

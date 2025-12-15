@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HomeWorks</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/adaptive.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<div class="container">
+    <div class="main">
+        <header class="header">
+            <a href="#" class="logo"><img class="header__logo" src="assets/images/logo.png" alt="Logo"></a>
+        </header>
+        <section class="left">
+            <div class="content">
+                <h1>Get your free account</h1>
+                <p class="text">Try homeWorks BUSINESS free for 15 days.
+                    Downgrade to Basic (Free Forever) anytime.</p>
+                <form class="form" id="form">
+                    <label class="remove">
+                        Full Name
+                        <input class="check" type="text" id="name" name="Full Name" autocomplete>
+                    </label>
+                    <label class="remove">
+                        Your username
+                        <input class="check" type="text" id="username" name="Your username">
+                    </label>
+                    <label class="remove">
+                        E-mail
+                        <input class="check" type="text" id="e-mail" name="E-mail">
+                    </label>
+                    <label class="remove">
+                        Password
+                        <input class="check" type="password" id="password" name="Password">
+                    </label>
+                    <label class="remove">
+                        Repeat Password
+                        <input class="check" type="password" id="password-confirm" name="Repeat Password">
+                    </label>
+                    <div class="action">
+                        <input type="checkbox" id="checkbox">
+                        Agree to our Terms of Service and Privacy Statement
+                    </div>
+                    <div class="form__button">
+                        <button type="button">Sign Up</button>
+                        <a class="transition" href="#" id="an-account">Already have an account?</a>
+                    </div>
+
+                </form>
+
+            </div>
+        </section>
+        <section class="right">
+            <img class="image__right" src="assets/images/main-image.png" alt="picture">
+        </section>
+    </div>
+</div>
+
+<section class="hidden" id="popup">
+    <div class="fog">
+        <div class="popup">
+            <p class="popup__text">На вашу почту выслана ссылка,
+                перейдите по ней, чтобы завершить регистрацию</p>
+            <button class="popup__btn" type="button" id="popup-close">Ok</button>
+        </div>
+    </div>
+</section>
+
+
+
+<script src="scripts/script.js"></script>
+</body>
+</html>
