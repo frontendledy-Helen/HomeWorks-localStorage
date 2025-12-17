@@ -3,73 +3,131 @@ window.onload = function () {
     const form = document.querySelector('form');
     let isLoginMode = false;
     console.log(form)
+    console.log('helen-vv@yandex.ru')
+    console.log('Apel0220@sin')
 
+    const errorInputs = document.getElementsByClassName('error-input'); // div
+    const getCheck = document.getElementsByClassName('check'); // input
+    const checkBoxDelete = document.getElementsByClassName('action')[0];
 
-    form[0].addEventListener('keydown', (event) => {
-        let res = parseInt(event.key);
-        if (!isNaN(res)) {
-            return false;
+    form[0].addEventListener('blur', (event) => {
+        const text = event.target.value;
+        const regex = /^(?=.*[А-Яа-яЁёA-Za-z])(?=.*\s)?[А-Яа-яЁёA-Za-z\s]+$/;
+        if (text.match(regex) === null || text === '') {
+            errorInputs[0].style.display = 'block';
+            errorInputs[0].innerHTML = 'The name entered is invalid. Please check it and try again.';
+            getCheck[0].style.borderBottom = '1px solid red';
+        } else {
+            errorInputs[0].style.display = 'none';
+            errorInputs[0].innerHTML = '';
+            getCheck[0].style.borderBottom = '1px solid #C6C6C4';
+            form[0].classList.add('green');
         }
     });
 
-    form[1].addEventListener('keydown', (event) => {
-        if (event.key === '.' || event.key === ',') {
-            return false;
+    form[1].addEventListener('blur', (event) => {
+        const text = event.target.value;
+        const regex = /^[а-яёА-ЯЁ\-\w]+$/;
+        if (text.match(regex) === null || text === '') {
+            errorInputs[1].style.display = 'block';
+            errorInputs[1].innerHTML = 'The username entered is invalid. Please check it and try again.';
+            getCheck[1].style.borderBottom = '1px solid red';
+        } else {
+            errorInputs[1].style.display = 'none';
+            errorInputs[1].innerHTML = '';
+            getCheck[1].style.borderBottom = '1px solid #C6C6C4';
+            form[1].classList.add('green');
         }
     });
 
     form[2].addEventListener('blur', (event) => {
-        const value = event.target.value;
-        if (!value.includes('@') && !value.includes(".")) {
-            alert("Некорректный адрес электронной почты!");
-            form[2].value = "";
+        const text = event.target.value;
+        const regex = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/;
+        if (text.match(regex) === null || text === '') {
+            console.log(text)
+            errorInputs[2].style.display = 'block';
+            errorInputs[2].innerHTML = 'The email address you entered is invalid. Please check it and try again.';
+            getCheck[2].style.borderBottom = '1px solid red';
+        } else {
+            errorInputs[2].style.display = 'none';
+            errorInputs[2].innerHTML = '';
+            getCheck[2].style.borderBottom = '1px solid #C6C6C4';
+            form[2].classList.add('green');
+        }
+    });
+
+    form[3].addEventListener('blur', (event) => {
+        const text = event.target.value;
+        const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+=;':\"\\|,.<>\?]).{8,}$/;
+        if (text.match(regex) === null || text === '') {
+            console.log(text)
+            errorInputs[3].style.display = 'block';
+            errorInputs[3].innerHTML = 'The password must contain at least one uppercase letter,\n' +
+                ' at least one digit,\n' +
+                ' and at least one special character.';
+            getCheck[3].style.borderBottom = '1px solid red';
+        } else {
+            errorInputs[3].style.display = 'none';
+            errorInputs[3].innerHTML = '';
+            getCheck[3].style.borderBottom = '1px solid #C6C6C4';
+            form[3].classList.add('green');
         }
     });
 
     form[4].addEventListener('blur', function () {
         if (form[3].value.length >= 8) {
             if (form[4].value !== form[3].value) {
-                alert(`Ошибка, пароли не совпадают`);
-                form[3].value = "";
+                errorInputs[4].style.display = 'block';
+                getCheck[4].style.borderBottom = '1px solid red';
                 form[4].value = "";
 
             } else {
                 console.log('пароль совпал');
+                errorInputs[4].style.display = 'none';
+                getCheck[4].style.borderBottom = '1px solid #C6C6C4';
+                form[4].classList.add('green');
             }
-        } else if (form[3].value.length <= 7) {
-            alert('Пароль должен содержать не менее 8 символов');
-            form[3].value = "";
-            form[4].value = "";
         }
     });
 
     form[5].addEventListener('change', (event) => {
         if (event.currentTarget.checked) {
             console.log("Согласен");
-        } else {
+            checkBoxDelete.classList.remove('red');
+        }
+        if (!event.currentTarget.checked) {
             console.log("Не согласен");
-            alert('Ошибка: Вы должны согласиться с правилами и условиями');
+            checkBoxDelete.classList.add('red');
         }
     });
 
     const popupClose = document.getElementById('popup-close');
+
 
     form[6].addEventListener('click', function (event) {
         isLoginMode ? handleLoginSubmit(event) : handleRegisterSubmit(event)
     });
 
     function handleRegisterSubmit(event) {
-        for (let i = 0; i < form.length - 1; i++) {
-            if (!form[i].value) {
-                alert(`Заполните форму ${form[i].name}`);
+        for (let i = 0; i < 5; i++) {
+            if (!form[i].classList.contains('green')) {
+                errorInputs[i].style.display = 'block';
+                getCheck[i].style.borderBottom = '1px solid red';
                 return;
             }
+            // if (form[i].classList.contains('green')) {
+            //     errorInputs[i].style.display = 'none';
+            //     getCheck[i].style.borderBottom = '1px solid #C6C6C4';
+            // }
         }
         if (!form[5].checked) {
-            alert('Ошибка: Вы должны согласиться с правилами и условиями');
+            document.getElementsByClassName('action')[0].style.color = 'red';
             return;
+        } else {
+            document.getElementsByClassName('action')[0].style.color = '#323232';
         }
 
+        console.log(1)
         const popupOpen = document.getElementById('popup');
         popupOpen.style.display = 'block';
 

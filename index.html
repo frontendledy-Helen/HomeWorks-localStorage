@@ -22,23 +22,28 @@
                 <form class="form" id="form">
                     <label class="remove">
                         Full Name
-                        <input class="check" type="text" id="name" name="Full Name" autocomplete>
+                        <input class="check" type="text" id="name" name="Full Name">
+                        <div class="error-input">Еnter your full name</div>
                     </label>
                     <label class="remove">
                         Your username
                         <input class="check" type="text" id="username" name="Your username">
+                        <div class="error-input">Еnter your username</div>
                     </label>
                     <label class="remove">
                         E-mail
                         <input class="check" type="text" id="e-mail" name="E-mail">
+                        <div class="error-input">Еnter your e-mail</div>
                     </label>
                     <label class="remove">
                         Password
-                        <input class="check" type="password" id="password" name="Password">
+                        <input class="check" type="password" id="password" name="Password" title="Length of at least 8 characters. Example: Password123!">
+                        <div class="error-input">Password must be 8 characters or longer</div>
                     </label>
                     <label class="remove">
                         Repeat Password
-                        <input class="check" type="password" id="password-confirm" name="Repeat Password">
+                        <input class="check" type="password" id="password-confirm" name="Repeat Password" title="Length of at least 8 characters. Example: Password123!">
+                        <div class="error-input">The passwords you entered do not match. Please try again</div>
                     </label>
                     <div class="action">
                         <input type="checkbox" id="checkbox">

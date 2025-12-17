@@ -84,7 +84,7 @@ label {
     font-size: 16px;
     line-height: 27px;
     color: #C6C6C4;
-    border-bottom: 1px solid #C6C6C4;
+    /*border-bottom: 1px solid #C6C6C4;*/
 
 }
 
@@ -94,6 +94,13 @@ input {
     font-size: 20px;
     color: #323232;
     margin-top: 5px;
+    border-bottom: 1px solid #C6C6C4;
+}
+
+.error-input {
+    display: none;
+    font-size: 14px;
+    color: red;
 }
 
 .action {
@@ -210,6 +217,10 @@ button {
 
 .popup__btn {
     background: #72737a;
+}
+
+.red {
+    color: red;
 }
 
 
