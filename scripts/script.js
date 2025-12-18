@@ -144,7 +144,6 @@ window.onload = function () {
         console.log(JSON.parse(localStorage.getItem('clients')))
 
 
-
         const popupOpen = document.getElementById('popup');
         popupOpen.style.display = 'block';
 
@@ -154,26 +153,8 @@ window.onload = function () {
         })
     }
 
-    function handleLoginSubmit(event) {
-        event.preventDefault();
-
-        if (!form['username'].value) {
-            alert(`Заполните поле ${form[1].name}`);
-            return;
-        }
-        if (!form['password'].value) {
-            alert(`Заполните поле ${form['password'].name}`);
-            return;
-        } else if (form['password'].value.length <= 7) {
-            alert('Пароль должен содержать не менее 8 символов');
-            form['password'].value = "";
-            return;
-        }
-        alert(`Добро пожаловать, ${form[1].value}!`);
-        form.reset();
-    }
-
     const transitionToAnAccount = document.getElementById('an-account');
+    const getRegistration = document.getElementById('registration');
 
     const switchToLoginMode = function () {
         isLoginMode = true;
@@ -196,11 +177,40 @@ window.onload = function () {
         button.innerHTML = 'Sign in';
 
         transitionToAnAccount.style.display = 'none';
-
+        getRegistration.style.display = 'block';
     };
+
+    function handleLoginSubmit(event) {
+        event.preventDefault();
+
+        if (!form['username'].value) {
+            errorInputs[1].style.display = 'block';
+            getCheck[1].style.borderBottom = '1px solid red';
+        } else {
+            errorInputs[1].style.display = 'none';
+            getCheck[1].style.borderBottom = '1px solid #C6C6C4';
+        }
+
+
+        if (!form['password'].value) {
+            errorInputs[3].style.display = 'block';
+            getCheck[3].style.borderBottom = '1px solid red';
+        } else if (form['password'].value.length <= 7) {
+            errorInputs[3].style.display = 'block';
+            getCheck[3].style.borderBottom = '1px solid red';
+        }
+        alert(`Добро пожаловать, ${form[1].value}!`);
+        form.reset();
+    }
 
     popupClose.addEventListener('click', switchToLoginMode);
     transitionToAnAccount.addEventListener('click', switchToLoginMode);
+
+
+    getRegistration.addEventListener('click', function (event) {
+        event.preventDefault();
+        location.reload();
+    });
 
 };
 
