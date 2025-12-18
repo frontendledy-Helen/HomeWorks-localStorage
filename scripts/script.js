@@ -115,10 +115,6 @@ window.onload = function () {
                 getCheck[i].style.borderBottom = '1px solid red';
                 return;
             }
-            // if (form[i].classList.contains('green')) {
-            //     errorInputs[i].style.display = 'none';
-            //     getCheck[i].style.borderBottom = '1px solid #C6C6C4';
-            // }
         }
         if (!form[5].checked) {
             document.getElementsByClassName('action')[0].style.color = 'red';
@@ -127,7 +123,28 @@ window.onload = function () {
             document.getElementsByClassName('action')[0].style.color = '#323232';
         }
 
-        console.log(1)
+        //создание объекта
+        const user = {
+            name: form[0].value,
+            username: form[1].value,
+            email: form[2].value,
+            password: form[3].value,
+        }
+        console.log(user);
+
+        let clients = [];
+
+        let savedUser = localStorage.getItem('clients');
+        if (savedUser) {
+            clients = JSON.parse(savedUser);
+        }
+        clients.push(user);
+        localStorage.setItem('clients', JSON.stringify(clients));
+        console.log(localStorage)
+        console.log(JSON.parse(localStorage.getItem('clients')))
+
+
+
         const popupOpen = document.getElementById('popup');
         popupOpen.style.display = 'block';
 
