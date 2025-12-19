@@ -60,7 +60,6 @@ window.onload = function () {
         const text = event.target.value;
         const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+=;':\"\\|,.<>\?]).{8,}$/;
         if (text.match(regex) === null || text === '') {
-            console.log(text)
             errorInputs[3].style.display = 'block';
             errorInputs[3].innerHTML = 'The password must contain at least one uppercase letter,\n' +
                 ' at least one digit,\n' +
@@ -141,7 +140,7 @@ window.onload = function () {
         clients.push(user);
         localStorage.setItem('clients', JSON.stringify(clients));
         console.log(localStorage)
-        console.log(JSON.parse(localStorage.getItem('clients')))
+        console.log(JSON.parse(savedUser));
 
 
         const popupOpen = document.getElementById('popup');
@@ -180,10 +179,14 @@ window.onload = function () {
         getRegistration.style.display = 'block';
     };
 
+
     function handleLoginSubmit(event) {
         event.preventDefault();
 
-        if (!form['username'].value) {
+        let enteredUsername = form['username'].value;
+        let enteredPassword = form['password'].value;
+
+        if (!enteredUsername) {
             errorInputs[1].style.display = 'block';
             getCheck[1].style.borderBottom = '1px solid red';
         } else {
@@ -191,17 +194,44 @@ window.onload = function () {
             getCheck[1].style.borderBottom = '1px solid #C6C6C4';
         }
 
-
-        if (!form['password'].value) {
+        if (!enteredPassword) {
             errorInputs[3].style.display = 'block';
             getCheck[3].style.borderBottom = '1px solid red';
-        } else if (form['password'].value.length <= 7) {
-            errorInputs[3].style.display = 'block';
-            getCheck[3].style.borderBottom = '1px solid red';
+        } else {
+            errorInputs[3].style.display = 'none';
+            getCheck[3].style.borderBottom = '1px solid #C6C6C4';
         }
-        alert(`Добро пожаловать, ${form[1].value}!`);
+
+        let userArray = JSON.parse(localStorage.getItem('clients'));
+        console.log(userArray)
+        const userNameArray = userArray.find(user => user.username === enteredUsername)
+        const passwordArray = userArray.find(user => user.password === enteredPassword)
+
+        if (!userNameArray) {
+            getCheck[1].style.borderBottom = '1px solid red';
+            errorInputs[1].style.display = 'block';
+            errorInputs[1].innerHTML = 'Such a user is not registered';
+            return;
+        }
+
+        if (!passwordArray) {
+            getCheck[3].style.borderBottom = '1px solid red';
+            errorInputs[3].style.display = 'block';
+            errorInputs[3].innerHTML = 'invalid password';
+            return;
+        }
+
+        getCheck[1].style.borderBottom = '1px solid #C6C6C4';
+        errorInputs[1].style.display = 'none';
+        getCheck[3].style.borderBottom = '1px solid #C6C6C4';
+        errorInputs[3].style.display = 'none';
         form.reset();
+
+        // вход в личный кабинет
+
+
     }
+
 
     popupClose.addEventListener('click', switchToLoginMode);
     transitionToAnAccount.addEventListener('click', switchToLoginMode);
@@ -212,5 +242,5 @@ window.onload = function () {
         location.reload();
     });
 
-};
 
+}
