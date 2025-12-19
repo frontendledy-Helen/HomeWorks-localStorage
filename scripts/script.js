@@ -104,7 +104,7 @@ window.onload = function () {
 
 
     form[6].addEventListener('click', function (event) {
-        isLoginMode ? handleLoginSubmit(event) : handleRegisterSubmit(event)
+        isLoginMode ? handleLoginSubmit(event) : handleRegisterSubmit(event);
     });
 
     function handleRegisterSubmit(event) {
@@ -152,16 +152,17 @@ window.onload = function () {
         })
     }
 
+    const toChangeInput = document.querySelectorAll('.remove');
+    const toChangeHeading = document.getElementsByTagName('h1')[0];
+    const button = document.getElementsByTagName('button')[0];
     const transitionToAnAccount = document.getElementById('an-account');
     const getRegistration = document.getElementById('registration');
 
     const switchToLoginMode = function () {
         isLoginMode = true;
 
-        const toChangeHeading = document.getElementsByTagName('h1')[0];
         toChangeHeading.innerHTML = 'Log in to the system';
 
-        const toChangeInput = document.querySelectorAll('.remove');
         for (let i = 0; i < toChangeInput.length; i++) {
             if ([i] % 2 !== 1) {
                 toChangeInput[i].style.display = 'none';
@@ -171,8 +172,6 @@ window.onload = function () {
         const checkBoxDelete = document.getElementsByClassName('action')[0];
         checkBoxDelete.style.display = 'none';
 
-
-        const button = document.getElementsByTagName('button')[0];
         button.innerHTML = 'Sign in';
 
         transitionToAnAccount.style.display = 'none';
@@ -183,11 +182,18 @@ window.onload = function () {
     function handleLoginSubmit(event) {
         event.preventDefault();
 
+        let userArray = JSON.parse(localStorage.getItem('clients'));
+        console.log(userArray)
         let enteredUsername = form['username'].value;
         let enteredPassword = form['password'].value;
 
+        let userNameArray = userArray.find(user => user.username === enteredUsername)
+        let passwordArray = userArray.find(user => user.password === enteredPassword)
+
         if (!enteredUsername) {
+            console.log(enteredUsername)
             errorInputs[1].style.display = 'block';
+            errorInputs[1].innerHTML = 'Еnter your username';
             getCheck[1].style.borderBottom = '1px solid red';
         } else {
             errorInputs[1].style.display = 'none';
@@ -195,17 +201,14 @@ window.onload = function () {
         }
 
         if (!enteredPassword) {
+            console.log(enteredPassword)
             errorInputs[3].style.display = 'block';
+            errorInputs[3].innerHTML = 'Еnter your password';
             getCheck[3].style.borderBottom = '1px solid red';
         } else {
             errorInputs[3].style.display = 'none';
             getCheck[3].style.borderBottom = '1px solid #C6C6C4';
         }
-
-        let userArray = JSON.parse(localStorage.getItem('clients'));
-        console.log(userArray)
-        const userNameArray = userArray.find(user => user.username === enteredUsername)
-        const passwordArray = userArray.find(user => user.password === enteredPassword)
 
         if (!userNameArray) {
             getCheck[1].style.borderBottom = '1px solid red';
@@ -228,9 +231,23 @@ window.onload = function () {
         form.reset();
 
         // вход в личный кабинет
+        let fullNameArray = userArray.find(user => userNameArray.name === user.name).name
+        console.log(fullNameArray)
+        toChangeHeading.innerHTML = `Welcome, ${fullNameArray}!`;
+        toChangeHeading.style.marginBottom = '60px';
+        button.innerHTML = 'Exit';
+        getRegistration.style.display = 'none';
+        document.getElementsByClassName('text')[0].style.display = 'none';
+        toChangeInput[1].style.display = 'none';
+        toChangeInput[3].style.display = 'none';
 
+        form[6].addEventListener('click', function () {
+            event.preventDefault();
+            location.reload();
+        });
 
     }
+
 
 
     popupClose.addEventListener('click', switchToLoginMode);
