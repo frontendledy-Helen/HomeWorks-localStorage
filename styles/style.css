@@ -177,6 +177,7 @@ button {
     background-color: rgb(255, 255, 255);
     text-align: center;
     padding: 40px 20px;
+    border-radius: 10px;
     animation: open-popup .3s both;
 }
 
@@ -229,6 +230,22 @@ button {
 
 .red {
     color: red;
+}
+
+.border_red {
+    border-bottom: 1px solid red;
+}
+
+.border_gray {
+    border-bottom: 1px solid #C6C6C4;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
 }
 
 

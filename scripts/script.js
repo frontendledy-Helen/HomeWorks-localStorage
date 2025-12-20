@@ -6,90 +6,97 @@ window.onload = function () {
     console.log('helen-vv@yandex.ru')
     console.log('Apel0220@sin')
 
+    const formName = document.getElementById('name');
+    const formUsername = document.getElementById('username');
+    const formEmail = document.getElementById('e-mail');
+    const formPassword = document.getElementById('password');
+    const formConfirmPassword = document.getElementById('password-confirm');
+    const formCheckbox = document.getElementById('checkbox');
+    const formButton = document.getElementById('button-form');
+
     const errorInputs = document.getElementsByClassName('error-input'); // div
-    const getCheck = document.getElementsByClassName('check'); // input
+    const getCheck = document.getElementsByClassName('check');
     const checkBoxDelete = document.getElementsByClassName('action')[0];
 
-    form[0].addEventListener('blur', (event) => {
+    formName.addEventListener('blur', (event) => {
         const text = event.target.value;
         const regex = /^(?=.*[А-Яа-яЁёA-Za-z])(?=.*\s)?[А-Яа-яЁёA-Za-z\s]+$/;
         if (text.match(regex) === null || text === '') {
-            errorInputs[0].style.display = 'block';
-            errorInputs[0].innerHTML = 'The name entered is invalid. Please check it and try again.';
-            getCheck[0].style.borderBottom = '1px solid red';
+            formName.nextElementSibling.classList.add('show');
+            formName.nextElementSibling.innerHTML = 'The name entered is invalid. Please check it and try again.';
+            formName.classList.add('border_red');
         } else {
-            errorInputs[0].style.display = 'none';
-            errorInputs[0].innerHTML = '';
-            getCheck[0].style.borderBottom = '1px solid #C6C6C4';
-            form[0].classList.add('green');
+            formName.nextElementSibling.classList.remove('show');
+            formName.nextElementSibling.innerHTML = '';
+            formName.classList.remove('border_red');
+            formName.classList.add('green');
         }
     });
 
-    form[1].addEventListener('blur', (event) => {
+    formUsername.addEventListener('blur', (event) => {
         const text = event.target.value;
         const regex = /^[а-яёА-ЯЁ\-\w]+$/;
         if (text.match(regex) === null || text === '') {
-            errorInputs[1].style.display = 'block';
-            errorInputs[1].innerHTML = 'The username entered is invalid. Please check it and try again.';
-            getCheck[1].style.borderBottom = '1px solid red';
+            formUsername.nextElementSibling.classList.add('show');
+            formUsername.nextElementSibling.innerHTML = 'The username entered is invalid. Please check it and try again.';
+            formUsername.classList.add('border_red');
         } else {
-            errorInputs[1].style.display = 'none';
-            errorInputs[1].innerHTML = '';
-            getCheck[1].style.borderBottom = '1px solid #C6C6C4';
-            form[1].classList.add('green');
+            formUsername.nextElementSibling.classList.remove('show');
+            formUsername.nextElementSibling.innerHTML = '';
+            formUsername.classList.remove('border_red');
+            formUsername.classList.add('green');
         }
     });
 
-    form[2].addEventListener('blur', (event) => {
+    formEmail.addEventListener('blur', (event) => {
         const text = event.target.value;
         const regex = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/;
         if (text.match(regex) === null || text === '') {
-            console.log(text)
-            errorInputs[2].style.display = 'block';
-            errorInputs[2].innerHTML = 'The email address you entered is invalid. Please check it and try again.';
-            getCheck[2].style.borderBottom = '1px solid red';
+            formEmail.nextElementSibling.classList.add('show');
+            formEmail.nextElementSibling.innerHTML = 'The email address you entered is invalid. Please check it and try again.';
+            formEmail.classList.add('border_red');
         } else {
-            errorInputs[2].style.display = 'none';
-            errorInputs[2].innerHTML = '';
-            getCheck[2].style.borderBottom = '1px solid #C6C6C4';
-            form[2].classList.add('green');
+            formEmail.nextElementSibling.classList.remove('show');
+            formEmail.nextElementSibling.innerHTML = '';
+            formEmail.classList.remove('border_red');
+            formEmail.classList.add('green');
         }
     });
 
-    form[3].addEventListener('blur', (event) => {
+    formPassword.addEventListener('blur', (event) => {
         const text = event.target.value;
-        const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+=;':\"\\|,.<>\?]).{8,}$/;
+        const regex = /^(?=.*[A-ZА-ЯЁ])(?=.*\d)(?=.*[!@#$%^&*()_+=;':\"\\|,.<>\?]).{8,}$/;
         if (text.match(regex) === null || text === '') {
-            errorInputs[3].style.display = 'block';
-            errorInputs[3].innerHTML = 'The password must contain at least one uppercase letter,\n' +
+            formPassword.nextElementSibling.classList.add('show');
+            formPassword.nextElementSibling.innerHTML = 'The password must contain at least one uppercase letter,\n' +
                 ' at least one digit,\n' +
                 ' and at least one special character.';
-            getCheck[3].style.borderBottom = '1px solid red';
+            formPassword.classList.add('border_red');
         } else {
-            errorInputs[3].style.display = 'none';
-            errorInputs[3].innerHTML = '';
-            getCheck[3].style.borderBottom = '1px solid #C6C6C4';
-            form[3].classList.add('green');
+            formPassword.nextElementSibling.classList.remove('show');
+            formPassword.nextElementSibling.innerHTML = '';
+            formPassword.classList.remove('border_red');
+            formPassword.classList.add('green');
         }
     });
 
-    form[4].addEventListener('blur', function () {
-        if (form[3].value.length >= 8) {
-            if (form[4].value !== form[3].value) {
-                errorInputs[4].style.display = 'block';
-                getCheck[4].style.borderBottom = '1px solid red';
-                form[4].value = "";
+    formConfirmPassword.addEventListener('blur', function () {
+        if (formPassword.value.length >= 8) {
+            if (formConfirmPassword.value !== formPassword.value) {
+                formConfirmPassword.nextElementSibling.classList.add('show');
+                formConfirmPassword.classList.add('border_red');
+                formConfirmPassword.value = "";
 
             } else {
                 console.log('пароль совпал');
-                errorInputs[4].style.display = 'none';
-                getCheck[4].style.borderBottom = '1px solid #C6C6C4';
-                form[4].classList.add('green');
+                formConfirmPassword.nextElementSibling.classList.remove('show');
+                formConfirmPassword.classList.remove('border_red');
+                formConfirmPassword.classList.add('green');
             }
         }
     });
 
-    form[5].addEventListener('change', (event) => {
+    formCheckbox.addEventListener('change', (event) => {
         if (event.currentTarget.checked) {
             console.log("Согласен");
             checkBoxDelete.classList.remove('red');
@@ -103,19 +110,19 @@ window.onload = function () {
     const popupClose = document.getElementById('popup-close');
 
 
-    form[6].addEventListener('click', function (event) {
+    formButton.addEventListener('click', function (event) {
         isLoginMode ? handleLoginSubmit(event) : handleRegisterSubmit(event);
     });
 
     function handleRegisterSubmit(event) {
         for (let i = 0; i < 5; i++) {
             if (!form[i].classList.contains('green')) {
-                errorInputs[i].style.display = 'block';
-                getCheck[i].style.borderBottom = '1px solid red';
+                errorInputs[i].classList.add('show');
+                getCheck[i].classList.add('border_red');
                 return;
             }
         }
-        if (!form[5].checked) {
+        if (!formCheckbox.checked) {
             document.getElementsByClassName('action')[0].style.color = 'red';
             return;
         } else {
@@ -124,10 +131,10 @@ window.onload = function () {
 
         //создание объекта
         const user = {
-            name: form[0].value,
-            username: form[1].value,
-            email: form[2].value,
-            password: form[3].value,
+            name: formName.value,
+            username: formUsername.value,
+            email: formEmail.value,
+            password: formPassword.value,
         }
         console.log(user);
 
@@ -154,7 +161,6 @@ window.onload = function () {
 
     const toChangeInput = document.querySelectorAll('.remove');
     const toChangeHeading = document.getElementsByTagName('h1')[0];
-    const button = document.getElementsByTagName('button')[0];
     const transitionToAnAccount = document.getElementById('an-account');
     const getRegistration = document.getElementById('registration');
 
@@ -163,19 +169,15 @@ window.onload = function () {
 
         toChangeHeading.innerHTML = 'Log in to the system';
 
-        for (let i = 0; i < toChangeInput.length; i++) {
-            if ([i] % 2 !== 1) {
-                toChangeInput[i].style.display = 'none';
-            }
-        }
+        formName.parentElement.classList.add('hide');
+        formEmail.parentElement.classList.add('hide');
+        formConfirmPassword.parentElement.classList.add('hide');
+        formCheckbox.parentElement.classList.add('hide');
 
-        const checkBoxDelete = document.getElementsByClassName('action')[0];
-        checkBoxDelete.style.display = 'none';
+        formButton.innerHTML = 'Sign in';
 
-        button.innerHTML = 'Sign in';
-
-        transitionToAnAccount.style.display = 'none';
-        getRegistration.style.display = 'block';
+        transitionToAnAccount.classList.add('hide');
+        getRegistration.classList.add('show');
     };
 
 
@@ -184,50 +186,44 @@ window.onload = function () {
 
         let userArray = JSON.parse(localStorage.getItem('clients'));
         console.log(userArray)
-        let enteredUsername = form['username'].value;
-        let enteredPassword = form['password'].value;
+        let enteredUsername = formUsername.value;
+        let enteredPassword = formPassword.value;
 
         let userNameArray = userArray.find(user => user.username === enteredUsername)
         let passwordArray = userArray.find(user => user.password === enteredPassword)
 
         if (!enteredUsername) {
-            console.log(enteredUsername)
-            errorInputs[1].style.display = 'block';
-            errorInputs[1].innerHTML = 'Еnter your username';
-            getCheck[1].style.borderBottom = '1px solid red';
+            formUsername.nextElementSibling.classList.add('show');
+            formUsername.nextElementSibling.innerHTML = 'Еnter your username';
+            formUsername.classList.add('border_red');
         } else {
-            errorInputs[1].style.display = 'none';
-            getCheck[1].style.borderBottom = '1px solid #C6C6C4';
+            formUsername.nextElementSibling.classList.remove('show');
+            formUsername.classList.remove('border_red');
         }
 
         if (!enteredPassword) {
-            console.log(enteredPassword)
-            errorInputs[3].style.display = 'block';
-            errorInputs[3].innerHTML = 'Еnter your password';
-            getCheck[3].style.borderBottom = '1px solid red';
+            formPassword.nextElementSibling.classList.add('show');
+            formPassword.nextElementSibling.innerHTML = 'Еnter your password';
+            formPassword.classList.add('border_red');
         } else {
-            errorInputs[3].style.display = 'none';
-            getCheck[3].style.borderBottom = '1px solid #C6C6C4';
+            formPassword.nextElementSibling.classList.remove('show');
+            formPassword.classList.remove('border_red');
         }
 
         if (!userNameArray) {
-            getCheck[1].style.borderBottom = '1px solid red';
-            errorInputs[1].style.display = 'block';
-            errorInputs[1].innerHTML = 'Such a user is not registered';
+            formUsername.nextElementSibling.classList.add('show');
+            formUsername.nextElementSibling.innerHTML = 'Such a user is not registered';
+            formUsername.classList.add('border_red');
             return;
         }
 
         if (!passwordArray) {
-            getCheck[3].style.borderBottom = '1px solid red';
-            errorInputs[3].style.display = 'block';
-            errorInputs[3].innerHTML = 'invalid password';
+            formPassword.classList.add('border_red');
+            formPassword.nextElementSibling.classList.add('show');
+            formPassword.nextElementSibling.innerHTML = 'invalid password';
             return;
         }
 
-        getCheck[1].style.borderBottom = '1px solid #C6C6C4';
-        errorInputs[1].style.display = 'none';
-        getCheck[3].style.borderBottom = '1px solid #C6C6C4';
-        errorInputs[3].style.display = 'none';
         form.reset();
 
         // вход в личный кабинет
@@ -235,20 +231,18 @@ window.onload = function () {
         console.log(fullNameArray)
         toChangeHeading.innerHTML = `Welcome, ${fullNameArray}!`;
         toChangeHeading.style.marginBottom = '60px';
-        button.innerHTML = 'Exit';
-        getRegistration.style.display = 'none';
-        document.getElementsByClassName('text')[0].style.display = 'none';
-        toChangeInput[1].style.display = 'none';
-        toChangeInput[3].style.display = 'none';
+        formButton.innerHTML = 'Exit';
+        getRegistration.classList.remove('show');
+        document.getElementsByClassName('text')[0].classList.add('hide');
+        formUsername.parentElement.classList.add('hide');
+        formPassword.parentElement.classList.add('hide');
 
-        form[6].addEventListener('click', function () {
+        formButton.addEventListener('click', function () {
             event.preventDefault();
             location.reload();
         });
 
     }
-
-
 
     popupClose.addEventListener('click', switchToLoginMode);
     transitionToAnAccount.addEventListener('click', switchToLoginMode);
