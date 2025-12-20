@@ -180,8 +180,7 @@ window.onload = function () {
         getRegistration.classList.add('show');
     };
 
-
-    function handleLoginSubmit(event) {
+    function validationLoginForm(event) {
         event.preventDefault();
 
         let userArray = JSON.parse(localStorage.getItem('clients'));
@@ -189,8 +188,7 @@ window.onload = function () {
         let enteredUsername = formUsername.value;
         let enteredPassword = formPassword.value;
 
-        let userNameArray = userArray.find(user => user.username === enteredUsername)
-        let passwordArray = userArray.find(user => user.password === enteredPassword)
+        let user = userArray.find(user => user.username === enteredUsername && user.password === enteredPassword);
 
         if (!enteredUsername) {
             formUsername.nextElementSibling.classList.add('show');
@@ -210,24 +208,25 @@ window.onload = function () {
             formPassword.classList.remove('border_red');
         }
 
-        if (!userNameArray) {
+        if (!user) {
             formUsername.nextElementSibling.classList.add('show');
             formUsername.nextElementSibling.innerHTML = 'Such a user is not registered';
             formUsername.classList.add('border_red');
-            return;
-        }
-
-        if (!passwordArray) {
             formPassword.classList.add('border_red');
             formPassword.nextElementSibling.classList.add('show');
             formPassword.nextElementSibling.innerHTML = 'invalid password';
             return;
         }
 
+        return user;
+    }
+
+
+    // вход в личный кабинет
+    function successfulLogin (user) {
         form.reset();
 
-        // вход в личный кабинет
-        let fullNameArray = userArray.find(user => userNameArray.name === user.name).name
+        let fullNameArray = user.name
         console.log(fullNameArray)
         toChangeHeading.innerHTML = `Welcome, ${fullNameArray}!`;
         toChangeHeading.style.marginBottom = '60px';
@@ -237,11 +236,17 @@ window.onload = function () {
         formUsername.parentElement.classList.add('hide');
         formPassword.parentElement.classList.add('hide');
 
-        formButton.addEventListener('click', function () {
+        formButton.addEventListener('click', function (event) {
             event.preventDefault();
             location.reload();
         });
+    }
 
+    function handleLoginSubmit (event) {
+        let user = validationLoginForm(event);
+        if (user) {
+            successfulLogin(user);
+        }
     }
 
     popupClose.addEventListener('click', switchToLoginMode);
